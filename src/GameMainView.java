@@ -1,10 +1,13 @@
 //IT공학전공 1916513 박희수
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
 //이름 입력과 단계 선택 
-public class GameMainView extends JFrame{
+public class GameMainView extends JFrame implements ActionListener{
 	JButton start; //시작 버튼
 	JLabel id, level, img; // 이름 입력
 	JTextField name; 
@@ -12,6 +15,8 @@ public class GameMainView extends JFrame{
 	GridBagLayout gridbag;
 	GridBagConstraints con;
 	ImageIcon back;
+	public String ID;
+    Main main;
 	
 	public GameMainView() {
 		super("단어 맞추기 게임");
@@ -31,6 +36,7 @@ public class GameMainView extends JFrame{
 		addComponent(id, 0, 3, 1, 1, 0, 0);
 		
 		name = new JTextField(10);
+		name.setToolTipText("5글자 이내로 설정");
 		addComponent(name, 1, 3, 2, 1, 0, 0);
 		
 		
@@ -46,11 +52,28 @@ public class GameMainView extends JFrame{
 		start = new JButton("Start!");
 		start.setBackground(new Color(200,200,200));
 		addComponent(start, 3, 3, 1, 2, 0, 0);
+		start.addActionListener(this);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 500);
 		setVisible(true);
 		
+	}
+	
+    //메인 실행
+	public void setMain(Main main) {
+		this.main = main;
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e)
+	     {
+		  
+		if(!name.getText().equals("")){
+			// 텍스트 이력창에 값이 있다면 닉네임 변수에 저장 후 게임화면 띄우기 
+			ID = name.getText().toString();
+			main.playGame(this, ID);
+		}
 	}
 	
 	//컴포넌트 추가하는 메소드
