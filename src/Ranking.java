@@ -13,17 +13,17 @@ public class Ranking extends JFrame{
 		this.setTitle("Ranking");
 		
 		setLayout(new BorderLayout(5,5));
-		add(new Label("3´Ü°è ·©Å·", Label.CENTER), BorderLayout.NORTH);
+		add(new Label("3ë‹¨ê³„ ë­í‚¹", Label.CENTER), BorderLayout.NORTH);
 		
 		
-		String[] columnName= {"¼øÀ§", "ÀÌ¸§","½Ã°£"	};
+		String[] columnName= {"ìˆœìœ„", "ì´ë¦„","ì‹œê°„"	};
 		Object[][] data= {
-				{"1µî", "È«±æµ¿", "2:00"},
-				{"2µî", "¹Ú´«¼Û", "3:02"},
-				{"3µî", "ÀÌ¼÷¸í", "5:02"},
-				{"4µî", "±è´«¼Û", "5:46"},
-				{"5µî", "ÃÖ¼÷¸í", "6:32"},
-				{"6µî", "±Ç´«¼Û", "7:26"},
+				{"1ë“±", "í™ê¸¸ë™", "2:00"},
+				{"2ë“±", "ë°•ëˆˆì†¡", "3:02"},
+				{"3ë“±", "ì´ìˆ™ëª…", "5:02"},
+				{"4ë“±", "ê¹€ëˆˆì†¡", "5:46"},
+				{"5ë“±", "ìµœìˆ™ëª…", "6:32"},
+				{"6ë“±", "ê¶Œëˆˆì†¡", "7:26"}
 		};
 		
 		table= new JTable(data, columnName);
@@ -34,8 +34,8 @@ public class Ranking extends JFrame{
 		Panel panel2= new Panel();
 		panel2.setLayout(new FlowLayout());
 		
-		restart = new JButton("´Ù½Ã ½ÃÀÛ");
-		end = new JButton("Á¾·á");
+		restart = new JButton("ë‹¤ì‹œ ì‹œì‘");
+		end = new JButton("ì¢…ë£Œ");
 		end.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
