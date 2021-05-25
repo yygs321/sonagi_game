@@ -21,7 +21,7 @@ public class GameMainView extends JFrame{
 		setLayout(gridbag);
 		
 		//그림
-		back = new ImageIcon("./src/img/back.png");
+		back = new ImageIcon("img/back.png");
 		img = new JLabel(back);
 		con.fill = GridBagConstraints.BOTH;
 		addComponent(img, 0, 0, 4, 3, 0, 0);
