@@ -39,7 +39,4 @@ public class Pause extends JDialog {
         add(resumeBt);
         add(exitBt);
     }
-
-
-
 }
