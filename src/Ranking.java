@@ -1,3 +1,5 @@
+//1713056 문헌정보학과 박소민
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
