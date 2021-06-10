@@ -29,13 +29,7 @@ public class Gui extends JPanel {
         add(scoreLabel);
 
         //텍스트라벨 표시
-        
-        /*
-        ImageIcon levelB = new ImageIcon("img/box.png");
-        Llevel.setOpaque(false);
-        Llevel.setBounds(250,40,85,30);
-        add(Llevel);
-        */
+      
         
         ImageIcon timeB = new ImageIcon("img/box.png");
         Ltime = new JLabel(timeB);
