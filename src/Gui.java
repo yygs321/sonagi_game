@@ -3,23 +3,25 @@ import javax.swing.*;
 
 public class Gui extends JPanel {
     int level,time,score;
-    String ID;
+    String ID, Level;
 
-    private JLabel Llevel,Ltime,Lscore,Llife,Lprofile,Ltop,Lbottom,Level,scoreLabel,idLabel,heartLabel;
+    private JLabel Llevel,Ltime,Lscore,Llife,Lprofile,Ltop,Lbottom,LLevel,levelLabel, scoreLabel,idLabel,heartLabel;
     private JTextField answer;
     private JButton stopB,sendB;
     
-    public Gui(String id){
+    public Gui(String id, String level){
     	ID=id;
+    	Level=level;
     	
         setSize(1280,720);
         setLayout(null);
         setBackground(Color.white);
 
-        Level = new JLabel("난이도");
-        Level.setOpaque(false);
-        Level.setBounds(275,10,85,30);
-        add(Level);
+        LLevel = new JLabel("난이도");
+        LLevel.setHorizontalAlignment(JLabel.CENTER); //텍스트 가운데 정렬
+        LLevel.setOpaque(false);
+        LLevel.setBounds(260,10,85,30);
+        add(LLevel);
 
         scoreLabel = new JLabel("점수");
         scoreLabel.setOpaque(false);
@@ -27,14 +29,13 @@ public class Gui extends JPanel {
         add(scoreLabel);
 
         //텍스트라벨 표시
-
-
+        
+        /*
         ImageIcon levelB = new ImageIcon("img/box.png");
-        Llevel = new JLabel(levelB);
         Llevel.setOpaque(false);
         Llevel.setBounds(250,40,85,30);
         add(Llevel);
-
+        */
         
         ImageIcon timeB = new ImageIcon("img/box.png");
         Ltime = new JLabel(timeB);
@@ -72,6 +73,16 @@ public class Gui extends JPanel {
         idLabel.setBounds(60,523,70,30);
         idLabel.setText(ID);
         add(idLabel);
+        
+        levelLabel= new JLabel();
+        levelLabel.setOpaque(true);
+        levelLabel.setBounds(260,40,85,30);
+        levelLabel.setText(Level);
+        levelLabel.setHorizontalAlignment(JLabel.CENTER); //텍스트 가운데 정렬
+        Color color1= new Color(234,234,234);
+        levelLabel.setBackground(color1);  
+        levelLabel.setForeground(Color.black);    
+        add(levelLabel);
 
         ImageIcon hearts = new ImageIcon("img/heart_3.png");
         heartLabel = new JLabel(hearts);
@@ -113,7 +124,5 @@ public class Gui extends JPanel {
         add(Ltop);
 
     }
-    
-
 
 }

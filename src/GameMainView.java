@@ -16,6 +16,7 @@ public class GameMainView extends JFrame implements ActionListener{
 	GridBagConstraints con;
 	ImageIcon back;
 	public String ID;
+	public String Level;
     Main main;
 	
 	public GameMainView() {
@@ -70,9 +71,10 @@ public class GameMainView extends JFrame implements ActionListener{
 	     {
 		  
 		if(!name.getText().equals("")){
-			// 텍스트 이력창에 값이 있다면 닉네임 변수에 저장 후 게임화면 띄우기 
+			//입력받은 값 ID 변수에 저장 후 게임화면 띄우기 
 			ID = name.getText().toString();
-			main.playGame(this, ID);
+			Level= levels.getSelectedItem().toString();
+			main.playGame(this, ID, Level);
 		}
 	}
 	
