@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -50,6 +51,7 @@ public class Gui extends JPanel {
         stopB = new JButton(pause);
         stopB.setBounds(700,10,65,65);
         stopB.setOpaque(false);
+        stopB.setBorderPainted(false);
         add(stopB);
 
         //일시정지 버튼, 이후 ActionListener 추가 예정
