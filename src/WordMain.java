@@ -9,7 +9,7 @@ public class WordMain {
 		 myFrame.setLocationRelativeTo(null); // JFrame을 모니터의 중앙에 띄우게 한다
 		 myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 myFrame.setVisible(true);
-		new Word(myFrame,1);
+		new Word(1);
 	}
 
 }

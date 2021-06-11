@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class Pause extends JDialog {
 
-    JButton resumeBt, exitBt;
+    JButton resumeBt,exitBt;
 
     public Pause(Window parent){
         super(parent,"Pause", ModalityType.APPLICATION_MODAL);

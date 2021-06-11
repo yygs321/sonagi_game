@@ -1,27 +1,34 @@
+import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
+import java.util.List;
 
 import javax.swing.*;
 
 //IT공학전공 1916513 박희수
 
-public class Word{
+public class Word extends JPanel{
 	
 	List<String> words = new ArrayList<String>();
 	List<String> RandomWords = new ArrayList<String>();
-	private JLabel label[] = new JLabel[100];
+	public JLabel[] label = new JLabel[100];
 	private int speed, i;
-	private JFrame frame;
-	
-	public Word(JFrame myFrame, int level) {
+
+
+	public Word(int level) {
 		RandomWords = WordCreate(level);
 		System.out.println(RandomWords);
 		speed = Speed(level);
-		frame = myFrame;
 		Rain rain = new Rain();
 		rain.start();
 	}
-	
+
+	@Override
+	public void setBackground(Color bg) {
+		super.setBackground(bg);
+	}
+
 	//파일 읽어서 단어 배열에 추가
 	public  List<String> WordCreate(int level) {
 		try {
@@ -74,7 +81,7 @@ public class Word{
 				Random random = new Random();
 				label[i] = new JLabel(RandomWords.get(i));
 				label[i].setBounds(0, 0, 80, 20);
-				frame.add(label[i]);
+				add(label[i]);
 				label[i].setLocation(random.nextInt(700), 2);// x값 랜덤으로 보여주기
 				new RainFall().start();
 				try {
@@ -105,4 +112,8 @@ public class Word{
 		
 		
 	}
+
+
+
+
 }
