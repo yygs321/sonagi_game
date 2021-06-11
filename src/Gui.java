@@ -1,18 +1,30 @@
 
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.*;
 
-public class Gui extends JPanel {
+//1714098 미디어학부 박예원
+
+public class Gui extends JPanel implements ActionListener,KeyListener {
+
     int level,time,score;
     String ID, Level;
-
-    private JLabel Llevel,Ltime,Lscore,Llife,Lprofile,Ltop,Lbottom,LLevel,levelLabel, scoreLabel,idLabel,heartLabel;
+    private JLabel Ltime,Lscore,Llife,Lprofile,Ltop,Lbottom,LLevel,levelLabel, scoreLabel,idLabel,heartLabel;
     private JTextField answer;
-    private JButton stopB,sendB;
+    private JButton sendB;
+
+    Word wordThread = new Word(level);
+    new_playTime pt = new new_playTime();
     
     public Gui(String id, String level){
     	ID=id;
     	Level=level;
+
+        wordThread.setBackground(Color.white);
+        wordThread.setBounds(0, 80, 800, 400);
+        add(wordThread);
     	
         setSize(1280,720);
         setLayout(null);
@@ -21,7 +33,7 @@ public class Gui extends JPanel {
         LLevel = new JLabel("난이도");
         LLevel.setHorizontalAlignment(JLabel.CENTER); //텍스트 가운데 정렬
         LLevel.setOpaque(false);
-        LLevel.setBounds(260,10,85,30);
+        LLevel.setBounds(255,10,85,30);
         add(LLevel);
 
         scoreLabel = new JLabel("점수");
@@ -30,13 +42,19 @@ public class Gui extends JPanel {
         add(scoreLabel);
 
         //텍스트라벨 표시
+
+        pt.setBounds(340, 10, 150, 150);
+        add(pt);
+
+        //타이머 배치
       
         
-        ImageIcon timeB = new ImageIcon("img/box.png");
-        Ltime = new JLabel(timeB);
-        Ltime.setOpaque(false);
-        Ltime.setBounds(370,40,85,30);
-        add(Ltime);
+        //ImageIcon timeB = new ImageIcon("img/box.png");
+        //Ltime = new JLabel(timeB);
+        //Ltime.setOpaque(false);
+        //Ltime.setBounds(230,40,85,30);
+        //add(Ltime);
+        // 타이머 따로 구현함
 
         ImageIcon scoreB = new ImageIcon("img/box.png");
         Lscore = new JLabel(scoreB);
@@ -47,14 +65,14 @@ public class Gui extends JPanel {
         //난이도, 시간, 점수를 나타낼 공간 표시
 
 
-        ImageIcon pause = new ImageIcon("img/pause_icon.png");
-        stopB = new JButton(pause);
-        stopB.setBounds(700,10,65,65);
-        stopB.setOpaque(false);
-        stopB.setBorderPainted(false);
-        add(stopB);
+        //ImageIcon pause = new ImageIcon("img/pause_icon.png");
+        //stopB = new JButton(pause);
+       // stopB.setBounds(700,10,65,65);
+        //stopB.setOpaque(false);
+        //stopB.setBorderPainted(false);
+        //add(stopB);
 
-        //일시정지 버튼, 이후 ActionListener 추가 예정
+        //일시정지 버튼이 타이머에 귀속됨
 
         // 상단바 완료
 
@@ -96,12 +114,14 @@ public class Gui extends JPanel {
         answer.setText("단어를 입력하세요");
         answer.setOpaque(false);
         answer.setBounds(300,527,250,35);
+        answer.addKeyListener(this);
         add(answer);
 
 
         sendB = new JButton("전송");
         sendB.setBounds(570,527,65,35);
         sendB.setOpaque(false);
+        sendB.addActionListener(this);
         add(sendB);
 
 
@@ -118,6 +138,40 @@ public class Gui extends JPanel {
         Ltop.setOpaque(false);
         Ltop.setBounds(0,0,1280,80);
         add(Ltop);
+
+    }
+    public void removeAnswer() { // 정답처리 메소드
+        for (int i = 0; i < 20; i++) {
+            if (answer.getText().equals(wordThread.RandomWords.get(i))) {
+                wordThread.label[i].setVisible(false);
+                score++;
+                // 해당단어 삭제, 점수 추가
+                //점수 업데이트 함수 들어가야 함
+            }
+        }
+        answer.setText("");
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == sendB) {
+            removeAnswer();
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyChar()== KeyEvent.VK_ENTER) { // 엔터 누르면 답변 지움
+            removeAnswer();
+        }
+    }
+    @Override
+    public void keyReleased(KeyEvent e) {
 
     }
 
