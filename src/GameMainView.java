@@ -1,5 +1,3 @@
-//IT공학전공 1916513 박희수
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,15 +1,15 @@
-//1713056 문헌정보학과 박소민
-
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.*;
+import java.util.*;
 
 public class Ranking extends JFrame{
 	private JButton restart, end;
 	private JTable table;
 	private JScrollPane scroll;
 	
-	public Ranking() {
+	public Ranking() throws IOException {
 		this.setSize(350,230);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Ranking");
@@ -19,6 +19,29 @@ public class Ranking extends JFrame{
 		
 		
 		String[] columnName= {"순위", "이름","시간"	};
+
+		/*텍스트파일에서 불러와서 넣기
+		String line[];
+
+		Scanner input= new Scanner(new File("result.txt"));
+		String str;
+		int col=3;
+		int row=0;
+		while(input.hasNextLine()) {
+			row +=1;
+		}
+		Object[][] data= new Object[row][col];
+		input.close();
+		
+		input=new Scanner(new File("result.txt"));
+		for(int i=0;i<row;i++) {
+			for(int j=0;j<col;j++) {
+				if(input.hasNextLine());
+			}
+		}
+		*/
+		
+		
 		Object[][] data= {
 				{"1등", "홍길동", "2:00"},
 				{"2등", "박눈송", "3:02"},
@@ -27,6 +50,7 @@ public class Ranking extends JFrame{
 				{"5등", "최숙명", "6:32"},
 				{"6등", "권눈송", "7:26"}
 		};
+		
 		
 		table= new JTable(data, columnName);
 		scroll=new JScrollPane(table);
