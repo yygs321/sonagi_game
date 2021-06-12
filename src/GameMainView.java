@@ -56,7 +56,7 @@ public class GameMainView extends JFrame implements ActionListener{
 		start.addActionListener(this);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(600, 500);
+		setSize(800, 600);
 		setVisible(true);
 		
 	}
