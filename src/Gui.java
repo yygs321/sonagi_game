@@ -77,11 +77,14 @@ public class Gui extends JPanel{
                     stopB.setEnabled(false);
                     wordThread.rain.suspend();
                     pt.p_display.suspend();
-
-                    int result = JOptionPane.showConfirmDialog(null,"프로그램을 종료하시겠습니까?","알림창",JOptionPane.OK_CANCEL_OPTION);
+                    int result = JOptionPane.showConfirmDialog(null,"다시 시작 하시겠습니까? ","일시정지됨",JOptionPane.OK_CANCEL_OPTION);
                     if (result==0){
                         //창닫기
-                        new GameMainView();
+                        setVisible(false);
+                        Main main= new Main();
+                        GameMainView login= new GameMainView();
+                        login.setMain(main);
+                        login.setLocationRelativeTo(null);
                     }else
                     {
                         stopB.setEnabled(true);
