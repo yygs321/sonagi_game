@@ -105,9 +105,14 @@ public class Word extends JPanel{
         	        add(label[i]);
                 	label[i].setLocation(random.nextInt(700), 2); // x값 랜덤으로 보여주기
                     
-                } catch (IndexOutOfBoundsException e) {
-                   
+                }  
+		catch (IndexOutOfBoundsException e) {
+
                 }
+                catch (NullPointerException e) {
+
+                }
+
                 new RainFall().start();
                 try {
                     Thread.sleep(speed);
