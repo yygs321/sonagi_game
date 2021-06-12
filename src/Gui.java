@@ -1,13 +1,12 @@
 
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.awt.event.*;
 
 //1714098 미디어학부 박예원
 
-public class Gui extends JPanel implements ActionListener,KeyListener {
+public class Gui extends JPanel{
 
     int level,time,num;
     int score=0;
@@ -16,15 +15,11 @@ public class Gui extends JPanel implements ActionListener,KeyListener {
     private JTextField answer;
     private JButton sendB;
 
-    Word wordThread = new Word(level);
-    new_playTime pt = new new_playTime();
     
-    public Gui(String id, String level){
+    public Gui(String id, String Level){
     	ID=id;
-    	Level=level;
-
-    	//난이도에 따라 단어 갯수 늘리기
-    	switch(level) {
+    	
+    	switch(Level) {
 		case "1단계":
 			num=30;
 			break;
@@ -36,8 +31,11 @@ public class Gui extends JPanel implements ActionListener,KeyListener {
 			break;
 		default: break;
     	}
-    	
-        wordThread.setBackground(Color.white);
+    
+    	Word wordThread = new Word(Level);
+       	new_playTime pt = new new_playTime();
+       	
+    	wordThread.setBackground(Color.white);
         wordThread.setBounds(0, 80, 800, 400);
         add(wordThread);
     	
@@ -111,14 +109,57 @@ public class Gui extends JPanel implements ActionListener,KeyListener {
         answer.setText("단어를 입력하세요");
         answer.setOpaque(false);
         answer.setBounds(300,527,250,35);
-        answer.addKeyListener(this);
+		answer.addKeyListener(new KeyListener(){
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				for (int i = 0; i < num; i++) {
+	                if (answer.getText().equals(wordThread.RandomWords.get(i))) {
+	                    wordThread.label[i].setVisible(false);
+	                    score++;
+	                    //score변경해서 맞힌개수 다시 출력
+	                    scoreLabel.setText(Integer.toString(score)+" / "+Integer.toString(num));
+	                    // 해당단어 삭제, 점수 추가
+	                    //점수 업데이트 함수 들어가야 함
+	                }
+	            }
+	            answer.setText("");
+
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
         add(answer);
 
 
         sendB = new JButton("전송");
         sendB.setBounds(570,527,65,35);
         sendB.setOpaque(false);
-        sendB.addActionListener(this);
+        sendB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				for (int i = 0; i < num; i++) {
+	                if (answer.getText().equals(wordThread.RandomWords.get(i))) {
+	                    wordThread.label[i].setVisible(false);
+	                    score++;
+	                    //score변경해서 맞힌개수 다시 출력
+	                    scoreLabel.setText(Integer.toString(score)+" / "+Integer.toString(num));
+	                    // 해당단어 삭제, 점수 추가
+	                    //점수 업데이트 함수 들어가야 함
+	                }
+	            }
+	            answer.setText("");
+			}
+		});
         add(sendB);
 
 
@@ -135,43 +176,6 @@ public class Gui extends JPanel implements ActionListener,KeyListener {
         Ltop.setOpaque(false);
         Ltop.setBounds(0,0,1280,80);
         add(Ltop);
-
-    }
-    public void removeAnswer() { // 정답처리 메소드
-        for (int i = 0; i < 20; i++) {
-            if (answer.getText().equals(wordThread.RandomWords.get(i))) {
-                wordThread.label[i].setVisible(false);
-                score++;
-                //score변경해서 맞힌개수 다시 출력
-                scoreLabel.setText(Integer.toString(score)+" / "+Integer.toString(num));
-                // 해당단어 삭제, 점수 추가
-                //점수 업데이트 함수 들어가야 함
-            }
-        }
-        answer.setText("");
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-        if (e.getSource() == sendB) {
-            removeAnswer();
-        }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyChar()== KeyEvent.VK_ENTER) { // 엔터 누르면 답변 지움
-            removeAnswer();
-        }
-    }
-    @Override
-    public void keyReleased(KeyEvent e) {
-
     }
 
 }

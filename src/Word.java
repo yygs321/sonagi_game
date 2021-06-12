@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
 import java.util.List;
@@ -10,13 +9,33 @@ import javax.swing.*;
 
 public class Word extends JPanel{
 
-    List<String> words = new ArrayList<String>();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	List<String> words = new ArrayList<String>();
     List<String> RandomWords = new ArrayList<String>();
     public JLabel[] label = new JLabel[100];
-    private int speed, i;
+    private int speed, i,num;
 
 
-    public Word(int level) {
+    public Word(String Level) {
+    	int level=0;
+    	
+    	//난이도에 따라 단어 갯수 늘리기
+    	switch(Level) {
+		case "1단계":
+			level=1;
+			break;
+		case "2단계": 
+			level=2;
+			break;
+		case "3단계": 
+			level=3;
+			break;
+		default: break;
+    	}
+    	
         RandomWords = WordCreate(level);
         System.out.println(RandomWords);
         speed = Speed(level);
@@ -45,8 +64,9 @@ public class Word extends JPanel{
         catch (FileNotFoundException e) {e.printStackTrace();
         } catch (IOException e) {System.out.println(e);
         }
+        num=10 * level + 20;
         //1단계일 때는 30개의 단어, 2단계일떄에는 40, 3단계에는 50개의 단어 리턴
-        return Word.getRandomElement(words, 10 * level + 20);
+        return Word.getRandomElement(words, num);
     }
 
     //무작위로 단어 선택해서 배열 리턴
@@ -65,13 +85,14 @@ public class Word extends JPanel{
     public int Speed(int level) {
 
         switch(level) {
-            case 1: return 1000;
-            case 2: return 800;
-            case 3: return 400;
+            case 1: return 1300;
+            case 2: return 1100;
+            case 3: return 900;
             default:
                 return 3000;
         }
     }
+    
 
     //단어 생성하는 쓰레드
     class Rain extends Thread{
