@@ -61,36 +61,6 @@ public class Gui extends JPanel implements ActionListener,KeyListener {
         pt.setBounds(340, 10, 150, 150);
         add(pt);
 
-        //타이머 배치
-      
-        
-        //ImageIcon timeB = new ImageIcon("img/box.png");
-        //Ltime = new JLabel(timeB);
-        //Ltime.setOpaque(false);
-        //Ltime.setBounds(230,40,85,30);
-        //add(Ltime);
-        // 타이머 따로 구현함
-
-        /*
-        ImageIcon scoreB = new ImageIcon("img/box.png");
-        Lscore = new JLabel(scoreB);
-        Lscore.setOpaque(false);
-        Lscore.setBounds(490,40,85,30);
-        add(Lscore);
-		*/ 
-        
-        //난이도, 시간, 점수를 나타낼 공간 표시
-
-
-        //ImageIcon pause = new ImageIcon("img/pause_icon.png");
-        //stopB = new JButton(pause);
-       // stopB.setBounds(700,10,65,65);
-        //stopB.setOpaque(false);
-        //stopB.setBorderPainted(false);
-        //add(stopB);
-
-        //일시정지 버튼이 타이머에 귀속됨
-
         // 상단바 완료
 
         ImageIcon profile = new ImageIcon("img/user_icon.png");
