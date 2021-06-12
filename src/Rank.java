@@ -1,4 +1,4 @@
-//1713056 박소민
+//1713056 문헌정보학과 박소민
 
 import java.awt.*;
 import javax.swing.*;

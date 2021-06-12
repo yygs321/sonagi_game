@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 //1714098 미디어학부 박예원
+//1713056 문헌정보학과 박소민
 
 public class Gui extends JPanel{
 
