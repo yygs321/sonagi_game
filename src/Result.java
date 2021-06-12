@@ -1,9 +1,11 @@
+//1713056 박소민
 import javax.swing.JFrame;
 
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 
 public class Result {
 	//게임 종료 후 난이도, 닉네임, 시간 결과 받아서 파일에 저장
