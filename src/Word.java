@@ -149,7 +149,7 @@ public class Word extends JPanel {
                 } catch (NullPointerException e) {
 
                 }
-                if (label[j].isVisible() && label[j].getY() > 480) {
+                if (label[j].isVisible() && label[j].getY() > 400) {
                     life -= 1;
                     switch (life) {
                         case 2:
@@ -159,9 +159,8 @@ public class Word extends JPanel {
                             Gui.heartLabel[1].setVisible(false);
                             break;
                         case 0:
-                            Gui.heartLabel[0].setVisible(false);
-                            //game over
-
+                            //게임오버안내
+                            System.exit(0);
                             break;
                     }
 
