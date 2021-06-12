@@ -14,6 +14,7 @@ public class Word extends JPanel{
 	List<String> words = new ArrayList<String>();
     List<String> RandomWords = new ArrayList<String>();
     public JLabel[] label = new JLabel[100];
+
     private int speed, i,num;
 
 
@@ -101,15 +102,10 @@ public class Word extends JPanel{
                 try {
                 	label[i] = new JLabel(RandomWords.get(i));
                   	label[i].setFont(new Font ("Serif", Font.BOLD, 14));
- 	                label[i].setBounds(0, 0, 80, 20);
-        	        add(label[i]);
-                	label[i].setLocation(random.nextInt(700), 2); // x값 랜덤으로 보여주기
-                    
-                }  
-		catch (IndexOutOfBoundsException e) {
-
-                }
-                catch (NullPointerException e) {
+                    label[i].setBounds(0, 0, 80, 20);
+                    add(label[i]);
+                    label[i].setLocation(random.nextInt(700), 2); // x값 랜덤으로 보여주기  
+                } catch (IndexOutOfBoundsException e) {
 
                 }
 
@@ -130,13 +126,17 @@ public class Word extends JPanel{
         @Override
         public void run() {
             for(int j =0; j<= i; j++) {
-                if (label[j].isVisible()) {
-                    int sp = label[j].getY();
-                    int xp = label[j].getX();
+            	try {
+            		if (label[j].isVisible()) {
+                        int sp = label[j].getY();
+                        int xp = label[j].getX();
 
-                    label[j].setLocation(xp, sp + 14);
+                        label[j].setLocation(xp, sp + 14);
 
-                }
+                    }
+            	} catch(NullPointerException e) {
+            		
+            	}
             }
         }
 
