@@ -126,7 +126,7 @@ public class Word extends JPanel{
                     int sp = label[j].getY();
                     int xp = label[j].getX();
 
-                    label[j].setLocation(xp, sp + 13);
+                    label[j].setLocation(xp, sp + 14);
 
                 }
             }
