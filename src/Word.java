@@ -105,12 +105,12 @@ public class Word extends JPanel {
     class Rain extends Thread {
         @Override
         public void run() {
-            for (i = 0; i <= 10000; i++) {
+            for (i = 0; i <= num; i++) {
                 Random random = new Random();
                 try {
                     label[i] = new JLabel(RandomWords.get(i));
                     label[i].setFont(new Font("Serif", Font.BOLD, 14));
-                    label[i].setBounds(0, 0, 80, 20);
+                    label[i].setBounds(0, 0, 100, 20);
                     add(label[i]);
                     label[i].setLocation(random.nextInt(700), 2); // x값 랜덤으로 보여주기
                 } catch (IndexOutOfBoundsException e) {
