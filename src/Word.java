@@ -100,11 +100,16 @@ public class Word extends JPanel{
         public void run() {
             for(i =0; i<= 10000; i++) {
                 Random random = new Random();
-                label[i] = new JLabel(RandomWords.get(i));
-                label[i].setBounds(0, 0, 80, 20);
-		label[i].setFont(new Font ("Serif", Font.BOLD, 14));
-                add(label[i]);
-                label[i].setLocation(random.nextInt(700), 2);// x값 랜덤으로 보여주기
+                try {
+                	label[i] = new JLabel(RandomWords.get(i));
+                  	label[i].setFont(new Font ("Serif", Font.BOLD, 14));
+ 	                label[i].setBounds(0, 0, 80, 20);
+        	        add(label[i]);
+                	label[i].setLocation(random.nextInt(700), 2); // x값 랜덤으로 보여주기
+                    
+                } catch (IndexOutOfBoundsException e) {
+                    e.printStackTrace();
+                }
                 new RainFall().start();
                 try {
                     Thread.sleep(speed);
