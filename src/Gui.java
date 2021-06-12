@@ -9,7 +9,8 @@ import java.awt.event.*;
 
 public class Gui extends JPanel implements ActionListener,KeyListener {
 
-    int level,time,score;
+    int level,time,num;
+    int score=0;
     String ID, Level;
     private JLabel Ltime,Lscore,Llife,Lprofile,Ltop,Lbottom,LLevel,levelLabel, scoreLabel,idLabel,heartLabel;
     private JTextField answer;
@@ -22,6 +23,20 @@ public class Gui extends JPanel implements ActionListener,KeyListener {
     	ID=id;
     	Level=level;
 
+    	//난이도에 따라 단어 갯수 늘리기
+    	switch(level) {
+		case "1단계":
+			num=30;
+			break;
+		case "2단계": 
+			num=40;
+			break;
+		case "3단계": 
+			num=50;
+			break;
+		default: break;
+    	}
+    	
         wordThread.setBackground(Color.white);
         wordThread.setBounds(0, 80, 800, 400);
         add(wordThread);
@@ -36,7 +51,7 @@ public class Gui extends JPanel implements ActionListener,KeyListener {
         LLevel.setBounds(255,10,85,30);
         add(LLevel);
 
-        scoreLabel = new JLabel("점수");
+        scoreLabel = new JLabel("맞은 갯수");
         scoreLabel.setOpaque(false);
         scoreLabel.setBounds(520,10,85,30);
         add(scoreLabel);
@@ -56,12 +71,14 @@ public class Gui extends JPanel implements ActionListener,KeyListener {
         //add(Ltime);
         // 타이머 따로 구현함
 
+        /*
         ImageIcon scoreB = new ImageIcon("img/box.png");
         Lscore = new JLabel(scoreB);
         Lscore.setOpaque(false);
         Lscore.setBounds(490,40,85,30);
         add(Lscore);
-
+		*/ 
+        
         //난이도, 시간, 점수를 나타낼 공간 표시
 
 
@@ -98,6 +115,16 @@ public class Gui extends JPanel implements ActionListener,KeyListener {
         levelLabel.setForeground(Color.black);    
         add(levelLabel);
 
+        scoreLabel= new JLabel();
+        scoreLabel.setOpaque(true);
+        scoreLabel.setBounds(490,40,85,30);
+        scoreLabel.setText(Integer.toString(score)+" / "+Integer.toString(num));
+        scoreLabel.setHorizontalAlignment(JLabel.CENTER); //텍스트 가운데 정렬
+        Color color2= new Color(234,234,234);
+        scoreLabel.setBackground(color2);  
+        scoreLabel.setForeground(Color.black);    
+        add(scoreLabel);
+        
         ImageIcon hearts = new ImageIcon("img/heart_3.png");
         heartLabel = new JLabel(hearts);
         heartLabel.setOpaque(false);
@@ -145,6 +172,8 @@ public class Gui extends JPanel implements ActionListener,KeyListener {
             if (answer.getText().equals(wordThread.RandomWords.get(i))) {
                 wordThread.label[i].setVisible(false);
                 score++;
+                //score변경해서 맞힌개수 다시 출력
+                scoreLabel.setText(Integer.toString(score)+" / "+Integer.toString(num));
                 // 해당단어 삭제, 점수 추가
                 //점수 업데이트 함수 들어가야 함
             }
