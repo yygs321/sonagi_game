@@ -14,7 +14,6 @@ public class Word extends JPanel{
 	List<String> words = new ArrayList<String>();
     List<String> RandomWords = new ArrayList<String>();
     public JLabel[] label = new JLabel[100];
-
     private int speed, i,num;
 
 
@@ -99,16 +98,11 @@ public class Word extends JPanel{
         public void run() {
             for(i =0; i<= 10000; i++) {
                 Random random = new Random();
-                try {
-                	label[i] = new JLabel(RandomWords.get(i));
-                  	label[i].setFont(new Font ("Serif", Font.BOLD, 14));
-                    label[i].setBounds(0, 0, 80, 20);
-                    add(label[i]);
-                    label[i].setLocation(random.nextInt(700), 2); // x값 랜덤으로 보여주기  
-                } catch (IndexOutOfBoundsException e) {
-
-                }
-
+                label[i] = new JLabel(RandomWords.get(i));
+                label[i].setBounds(0, 0, 80, 20);
+                label[i].setFont(new Font ("Serif", Font.BOLD, 14));
+                add(label[i]);
+                label[i].setLocation(random.nextInt(700), 2);// x값 랜덤으로 보여주기
                 new RainFall().start();
                 try {
                     Thread.sleep(speed);
@@ -123,20 +117,33 @@ public class Word extends JPanel{
     }
     //단어 떨어지는 쓰레드
     class RainFall extends Thread{
+        public int life =3;
         @Override
         public void run() {
             for(int j =0; j<= i; j++) {
-            	try {
-            		if (label[j].isVisible()) {
-                        int sp = label[j].getY();
-                        int xp = label[j].getX();
+                if (label[j].isVisible()) {
+                    int sp = label[j].getY();
+                    int xp = label[j].getX();
 
-                        label[j].setLocation(xp, sp + 14);
+                    label[j].setLocation(xp, sp + 10);
 
+                }
+                if(label[j].isVisible() && label[j].getY() > 450){
+                    life -= 1;
+                    switch (life){
+                        case 2 :
+                            Gui.heartLabel[2].setVisible(false);
+                            break;
+                        case 1 :
+                            Gui.heartLabel[1].setVisible(false);
+                            break;
+                        case 0 :
+                            Gui.heartLabel[0].setVisible(false);
+                            //game over
+
+                            break;
                     }
-            	} catch(NullPointerException e) {
-            		
-            	}
+                }
             }
         }
 
