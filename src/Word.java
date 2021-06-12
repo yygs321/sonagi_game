@@ -9,38 +9,37 @@ import javax.swing.*;
 
 public class Word extends JPanel{
 
- 
-	private static final long serialVersionUID = 1L;
-	List<String> words = new ArrayList<String>();
+
+    private static final long serialVersionUID = 1L;
+    List<String> words = new ArrayList<String>();
     List<String> RandomWords = new ArrayList<String>();
     public JLabel[] label = new JLabel[100];
+    Rain rain = new Rain();
+
     private int speed, i,num;
 
 
     public Word(String Level) {
-    	int level=0;
-    	
-    	//난이도에 따라 단어 갯수 늘리기
-    	switch(Level) {
-		case "1단계":
-			level=1;
-			num=30;
-			break;
-		case "2단계": 
-			level=2;
-			num=40;
-			break;
-		case "3단계": 
-			level=3;
-			num=50;
-			break;
-		default: break;
-    	}
-    	
+        int level=0;
+
+        //난이도에 따라 단어 갯수 늘리기
+        switch(Level) {
+            case "1단계":
+                level=1;
+                break;
+            case "2단계":
+                level=2;
+                break;
+            case "3단계":
+                level=3;
+                break;
+            default: break;
+        }
+
         RandomWords = WordCreate(level);
         System.out.println(RandomWords);
         speed = Speed(level);
-        Rain rain = new Rain();
+
         rain.start();
     }
 
@@ -65,6 +64,7 @@ public class Word extends JPanel{
         catch (FileNotFoundException e) {e.printStackTrace();
         } catch (IOException e) {System.out.println(e);
         }
+        num=10 * level + 20;
         //1단계일 때는 30개의 단어, 2단계일떄에는 40, 3단계에는 50개의 단어 리턴
         return Word.getRandomElement(words, num);
     }
@@ -92,7 +92,7 @@ public class Word extends JPanel{
                 return 3000;
         }
     }
-    
+
 
     //단어 생성하는 쓰레드
     class Rain extends Thread{
@@ -100,11 +100,16 @@ public class Word extends JPanel{
         public void run() {
             for(i =0; i<= 10000; i++) {
                 Random random = new Random();
-                label[i] = new JLabel(RandomWords.get(i));
-                label[i].setBounds(0, 0, 100, 20);
-                label[i].setFont(new Font ("Serif", Font.BOLD, 14));
-                add(label[i]);
-                label[i].setLocation(random.nextInt(700), 2);// x값 랜덤으로 보여주기
+                try {
+                    label[i] = new JLabel(RandomWords.get(i));
+                    label[i].setFont(new Font ("Serif", Font.BOLD, 14));
+                    label[i].setBounds(0, 0, 80, 20);
+                    add(label[i]);
+                    label[i].setLocation(random.nextInt(700), 2); // x값 랜덤으로 보여주기
+                } catch (IndexOutOfBoundsException e) {
+
+                }
+
                 new RainFall().start();
                 try {
                     Thread.sleep(speed);
@@ -119,32 +124,19 @@ public class Word extends JPanel{
     }
     //단어 떨어지는 쓰레드
     class RainFall extends Thread{
-        public int life =3;
         @Override
         public void run() {
             for(int j =0; j<= i; j++) {
-                if (label[j].isVisible()) {
-                    int sp = label[j].getY();
-                    int xp = label[j].getX();
+                try {
+                    if (label[j].isVisible()) {
+                        int sp = label[j].getY();
+                        int xp = label[j].getX();
 
-                    label[j].setLocation(xp, sp + 10);
+                        label[j].setLocation(xp, sp + 14);
 
-                }
-                if(label[j].isVisible() && label[j].getY() > 480){
-                    life -= 1;
-                    switch (life){
-                        case 2 :
-                            Gui.heartLabel[2].setVisible(false);
-                            break;
-                        case 1 :
-                            Gui.heartLabel[1].setVisible(false);
-                            break;
-                        case 0 :
-                            Gui.heartLabel[0].setVisible(false);
-                            //game over
-
-                            break;
                     }
+                } catch(NullPointerException e) {
+
                 }
             }
         }

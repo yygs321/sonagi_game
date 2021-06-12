@@ -15,7 +15,7 @@ public class new_playTime extends JPanel {
     JButton pause;
     Thread p_display;
     //쓰레드 미리 선언해 이벤트 등으로 조절
-    JLabel w1, w2, w3;
+    JLabel w1, w2, w3,Time;
     int mm, ss, ms, t = 0;
     // 시간 나타내는 값
 
@@ -70,10 +70,11 @@ public class new_playTime extends JPanel {
         w1 = new JLabel("00");
         w2 = new JLabel("00");
         w3 = new JLabel("00");
+        Time = new JLabel("경과 시간");
 
 
         pause = new JButton("PAUSE");
-        bp.add(pause);
+        bp.add(Time);
 
 
         wp.add(w1);
@@ -101,28 +102,9 @@ public class new_playTime extends JPanel {
         //처음에는 pause 버튼 활성
 
 
-        pause.addActionListener(new ButtonListener());
+
 
     }
 
-    class ButtonListener implements ActionListener {
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String s = e.getActionCommand();
-
-            if (s.equals("PAUSE")) {
-
-                pause.setEnabled(false);
-                p_display.suspend();
-                //pause 버튼 누르면 일시정지 버튼 비활성화, 쓰레드 일시정지
-                //pause 윈도우 뜰 수 있도록 이벤트 추가해야함
-
-
-            }
-
-
-        }
-    }
 }
-

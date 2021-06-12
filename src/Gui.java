@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import javax.swing.*;
 
@@ -9,45 +8,50 @@ import java.awt.event.*;
 
 public class Gui extends JPanel{
 
-    int level,time,num;
+    int level,time,num,m,s,ms;
     int score=0;
     String ID, Level;
-    private JLabel Ltime,Lscore,Llife,Lprofile,Ltop,Lbottom,LLevel,levelLabel, scoreLabel,idLabel, lineLb;
+    private JLabel Ltime,Lscore,Llife,Lprofile,Ltop,Lbottom,LLevel,levelLabel, scoreLabel,idLabel;
     public static JLabel[] heartLabel;
-    public static ImageIcon hicon, line;
+    public static ImageIcon hicon;
     private JTextField answer;
-    private JButton sendB;
+    private JButton sendB,stopB;
 
-    
+
     public Gui(String id, String Level){
-    	ID=id;
-    	
-    	switch(Level) {
-		case "1단계":
-			num=30;
-			break;
-		case "2단계": 
-			num=40;
-			break;
-		case "3단계": 
-			num=50;
-			break;
-		default: break;
-    	}
-    
-    	Word wordThread = new Word(Level);
-       	new_playTime pt = new new_playTime();
-       	
-    	wordThread.setBackground(Color.white);
+        ID=id;
+
+        switch(Level) {
+            case "1단계":
+                num=30;
+                break;
+            case "2단계":
+                num=40;
+                break;
+            case "3단계":
+                num=50;
+                break;
+            default: break;
+        }
+
+        Word wordThread = new Word(Level);
+        new_playTime pt = new new_playTime();
+
+        wordThread.setBackground(Color.white);
         wordThread.setBounds(0, 80, 800, 400);
         add(wordThread);
-    	
-        /*모든 개수 다 멈추면 타이머 멈추기,시간 결과받기, 랭킹창 띄우기(종료시간 받아서 넣기)
-        if(score==num) {
-        	
+
+        if(score == num){ // 다 맞출 경우
+            pt.p_display.suspend();
+            wordThread.rain.suspend();
+            m=pt.mm;
+            s=pt.ss;
+            ms=pt.ms;
+
         }
-        */
-        
+
+
+
         setSize(1280,720);
         setLayout(null);
         setBackground(Color.white);
@@ -69,6 +73,34 @@ public class Gui extends JPanel{
         pt.setBounds(340, 10, 150, 150);
         add(pt);
 
+        ImageIcon pause = new ImageIcon("img/pause_icon.png");
+        stopB = new JButton(pause);
+        stopB.setBounds(700,10,65,65);
+        stopB.setOpaque(false);
+        stopB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource()==stopB){
+                    stopB.setEnabled(false);
+                    wordThread.rain.suspend();
+                    pt.p_display.suspend();
+
+                    int result = JOptionPane.showConfirmDialog(null,"프로그램을 종료하시겠습니까?","알림창",JOptionPane.OK_CANCEL_OPTION);
+                    if (result==0){
+                        //창닫기
+                        new GameMainView();
+                    }else
+                    {
+                        stopB.setEnabled(true);
+                        wordThread.rain.resume();
+                        pt.p_display.resume();
+                    }
+                }
+
+            }
+        });
+        add(stopB);
+
         // 상단바 완료
 
         ImageIcon profile = new ImageIcon("img/user_icon.png");
@@ -82,15 +114,15 @@ public class Gui extends JPanel{
         idLabel.setBounds(60,523,70,30);
         idLabel.setText(ID);
         add(idLabel);
-        
+
         levelLabel= new JLabel();
         levelLabel.setOpaque(true);
         levelLabel.setBounds(260,40,85,30);
         levelLabel.setText(Level);
         levelLabel.setHorizontalAlignment(JLabel.CENTER); //텍스트 가운데 정렬
         Color color1= new Color(234,234,234);
-        levelLabel.setBackground(color1);  
-        levelLabel.setForeground(Color.black);    
+        levelLabel.setBackground(color1);
+        levelLabel.setForeground(Color.black);
         add(levelLabel);
 
         scoreLabel= new JLabel();
@@ -99,8 +131,8 @@ public class Gui extends JPanel{
         scoreLabel.setText(Integer.toString(score)+" / "+Integer.toString(num));
         scoreLabel.setHorizontalAlignment(JLabel.CENTER); //텍스트 가운데 정렬
         Color color2= new Color(234,234,234);
-        scoreLabel.setBackground(color2);  
-        scoreLabel.setForeground(Color.black);    
+        scoreLabel.setBackground(color2);
+        scoreLabel.setForeground(Color.black);
         add(scoreLabel);
 
 
@@ -115,9 +147,6 @@ public class Gui extends JPanel{
             heartLabel[i].setVisible(true);
         }
 
-        line = new ImageIcon("img/heart_3.png");
-
-        // 데드라인 가시화 하려고요
 
         ImageIcon lifeB = new ImageIcon("img/box.png");
         Llife = new JLabel(lifeB);
@@ -129,37 +158,36 @@ public class Gui extends JPanel{
         answer.setText("단어를 입력하세요");
         answer.setOpaque(false);
         answer.setBounds(300,527,250,35);
-		answer.addKeyListener(new KeyListener(){
-			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+        answer.addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // TODO Auto-generated method stub
 
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode()==e.VK_ENTER) {
-					for (int i = 0; i < num; i++) {
-		                if (answer.getText().equals(wordThread.RandomWords.get(i))) {
-		                    wordThread.label[i].setVisible(false);
-		                    score++;
-		                    //score변경해서 맞힌개수 다시 출력
-		                    scoreLabel.setText(Integer.toString(score)+" / "+Integer.toString(num));
-		                    // 해당단어 삭제, 점수 추가
-		                    //점수 업데이트 함수 들어가야 함
-		                }
-		            }
-		            answer.setText("");
-				}
-				
-			}
+            }
 
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+            @Override
+            public void keyPressed(KeyEvent e) {
+                for (int i = 0; i < num; i++) {
+                    if (answer.getText().equals(wordThread.RandomWords.get(i))) {
+                        wordThread.label[i].setVisible(false);
+                        score++;
+                        //score변경해서 맞힌개수 다시 출력
+                        scoreLabel.setText(Integer.toString(score)+" / "+Integer.toString(num));
+                        // 해당단어 삭제, 점수 추가
+                        //점수 업데이트 함수 들어가야 함
+                    }
+                }
+                answer.setText("");
+
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // TODO Auto-generated method stub
+
+            }
+        });
         add(answer);
 
 
@@ -167,20 +195,20 @@ public class Gui extends JPanel{
         sendB.setBounds(570,527,65,35);
         sendB.setOpaque(false);
         sendB.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){
-				for (int i = 0; i < num; i++) {
-	                if (answer.getText().equals(wordThread.RandomWords.get(i))) {
-	                    wordThread.label[i].setVisible(false);
-	                    score++;
-	                    //score변경해서 맞힌개수 다시 출력
-	                    scoreLabel.setText(Integer.toString(score)+" / "+Integer.toString(num));
-	                    // 해당단어 삭제, 점수 추가
-	                    //점수 업데이트 함수 들어가야 함
-	                }
-	            }
-	            answer.setText("");
-			}
-		});
+            public void actionPerformed(ActionEvent e){
+                for (int i = 0; i < num; i++) {
+                    if (answer.getText().equals(wordThread.RandomWords.get(i))) {
+                        wordThread.label[i].setVisible(false);
+                        score++;
+                        //score변경해서 맞힌개수 다시 출력
+                        scoreLabel.setText(Integer.toString(score)+" / "+Integer.toString(num));
+                        // 해당단어 삭제, 점수 추가
+                        //점수 업데이트 함수 들어가야 함
+                    }
+                }
+                answer.setText("");
+            }
+        });
         add(sendB);
 
 
