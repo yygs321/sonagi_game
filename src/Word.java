@@ -9,9 +9,7 @@ import javax.swing.*;
 
 public class Word extends JPanel{
 
-    /**
-	 * 
-	 */
+ 
 	private static final long serialVersionUID = 1L;
 	List<String> words = new ArrayList<String>();
     List<String> RandomWords = new ArrayList<String>();
@@ -100,10 +98,16 @@ public class Word extends JPanel{
         public void run() {
             for(i =0; i<= 10000; i++) {
                 Random random = new Random();
-                label[i] = new JLabel(RandomWords.get(i));
-                label[i].setBounds(0, 0, 80, 20);
-                add(label[i]);
-                label[i].setLocation(random.nextInt(700), 2);// x값 랜덤으로 보여주기
+                try {
+                	label[i] = new JLabel(RandomWords.get(i));
+                  	label[i].setFont(new Font ("Serif", Font.BOLD, 14));
+ 	                label[i].setBounds(0, 0, 80, 20);
+        	        add(label[i]);
+                	label[i].setLocation(random.nextInt(700), 2); // x값 랜덤으로 보여주기
+                    
+                } catch (IndexOutOfBoundsException e) {
+                    e.printStackTrace();
+                }
                 new RainFall().start();
                 try {
                     Thread.sleep(speed);
@@ -125,7 +129,7 @@ public class Word extends JPanel{
                     int sp = label[j].getY();
                     int xp = label[j].getX();
 
-                    label[j].setLocation(xp, sp + 10);
+                    label[j].setLocation(xp, sp + 14);
 
                 }
             }
