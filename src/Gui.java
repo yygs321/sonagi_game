@@ -12,9 +12,9 @@ public class Gui extends JPanel{
     int level,time,num;
     int score=0;
     String ID, Level;
-    private JLabel Ltime,Lscore,Llife,Lprofile,Ltop,Lbottom,LLevel,levelLabel, scoreLabel,idLabel;
+    private JLabel Ltime,Lscore,Llife,Lprofile,Ltop,Lbottom,LLevel,levelLabel, scoreLabel,idLabel, lineLb;
     public static JLabel[] heartLabel;
-    public static ImageIcon hicon;
+    public static ImageIcon hicon, line;
     private JTextField answer;
     private JButton sendB;
 
@@ -115,6 +115,9 @@ public class Gui extends JPanel{
             heartLabel[i].setVisible(true);
         }
 
+        line = new ImageIcon("img/heart_3.png");
+
+        // 데드라인 가시화 하려고요
 
         ImageIcon lifeB = new ImageIcon("img/box.png");
         Llife = new JLabel(lifeB);
