@@ -12,7 +12,9 @@ public class Gui extends JPanel{
     int level,time,num;
     int score=0;
     String ID, Level;
-    private JLabel Ltime,Lscore,Llife,Lprofile,Ltop,Lbottom,LLevel,levelLabel, scoreLabel,idLabel,heartLabel;
+    private JLabel Ltime,Lscore,Llife,Lprofile,Ltop,Lbottom,LLevel,levelLabel, scoreLabel,idLabel;
+    public static JLabel[] heartLabel;
+    public static ImageIcon hicon;
     private JTextField answer;
     private JButton sendB;
 
@@ -99,12 +101,19 @@ public class Gui extends JPanel{
         scoreLabel.setBackground(color2);  
         scoreLabel.setForeground(Color.black);    
         add(scoreLabel);
-        
-        ImageIcon hearts = new ImageIcon("img/heart_3.png");
-        heartLabel = new JLabel(hearts);
-        heartLabel.setOpaque(false);
-        heartLabel.setBounds(150,515,90,60);
-        add(heartLabel);
+
+
+
+        hicon = new ImageIcon("img/heart_3.png");
+        heartLabel = new JLabel[3];
+        for(int i = 0 ; i < heartLabel.length; i++){
+            heartLabel[i] = new JLabel(hicon);
+            heartLabel[i].setOpaque(false);
+            heartLabel[i].setBounds(157+(i*25),535,20,20);
+            add(heartLabel[i]);
+            heartLabel[i].setVisible(true);
+        }
+
 
         ImageIcon lifeB = new ImageIcon("img/box.png");
         Llife = new JLabel(lifeB);
