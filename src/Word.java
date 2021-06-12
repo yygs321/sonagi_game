@@ -24,12 +24,15 @@ public class Word extends JPanel{
     	switch(Level) {
 		case "1단계":
 			level=1;
+			num=30;
 			break;
 		case "2단계": 
 			level=2;
+			num=40;
 			break;
 		case "3단계": 
 			level=3;
+			num=50;
 			break;
 		default: break;
     	}
@@ -62,7 +65,6 @@ public class Word extends JPanel{
         catch (FileNotFoundException e) {e.printStackTrace();
         } catch (IOException e) {System.out.println(e);
         }
-        num=10 * level + 20;
         //1단계일 때는 30개의 단어, 2단계일떄에는 40, 3단계에는 50개의 단어 리턴
         return Word.getRandomElement(words, num);
     }
