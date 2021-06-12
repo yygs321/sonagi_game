@@ -102,6 +102,7 @@ public class Word extends JPanel{
                 Random random = new Random();
                 label[i] = new JLabel(RandomWords.get(i));
                 label[i].setBounds(0, 0, 80, 20);
+		label[i].setFont(new Font ("Serif", Font.BOLD, 14));
                 add(label[i]);
                 label[i].setLocation(random.nextInt(700), 2);// x값 랜덤으로 보여주기
                 new RainFall().start();
@@ -125,7 +126,7 @@ public class Word extends JPanel{
                     int sp = label[j].getY();
                     int xp = label[j].getX();
 
-                    label[j].setLocation(xp, sp + 10);
+                    label[j].setLocation(xp, sp + 13);
 
                 }
             }
