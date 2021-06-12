@@ -59,8 +59,9 @@ public class Gui extends JPanel{
         add(LLevel);
 
         scoreLabel = new JLabel("맞은 갯수");
+        scoreLabel.setHorizontalAlignment(JLabel.CENTER); //텍스트 가운데 정렬
         scoreLabel.setOpaque(false);
-        scoreLabel.setBounds(520,10,85,30);
+        scoreLabel.setBounds(490,10,85,30);
         add(scoreLabel);
 
         //텍스트라벨 표시
