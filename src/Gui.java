@@ -39,6 +39,12 @@ public class Gui extends JPanel{
         wordThread.setBounds(0, 80, 800, 400);
         add(wordThread);
     	
+        /*모든 개수 다 멈추면 타이머 멈추기,시간 결과받기, 랭킹창 띄우기(종료시간 받아서 넣기)
+        if(score==num) {
+        	
+        }
+        */
+        
         setSize(1280,720);
         setLayout(null);
         setBackground(Color.white);
