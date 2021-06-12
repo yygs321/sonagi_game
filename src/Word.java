@@ -7,7 +7,7 @@ import javax.swing.*;
 
 //IT공학전공 1916513 박희수
 
-public class Word extends JPanel{
+public class Word extends JPanel {
 
 
     private static final long serialVersionUID = 1L;
@@ -16,27 +16,28 @@ public class Word extends JPanel{
     public JLabel[] label = new JLabel[100];
     Rain rain = new Rain();
 
-    private int speed, i,num;
+    private int speed, i, num;
 
 
     public Word(String Level) {
-        int level=0;
+        int level = 0;
 
         //난이도에 따라 단어 갯수 늘리기
-        switch(Level) {
+        switch (Level) {
             case "1단계":
-                level=1;
-                num=30;
+                level = 1;
+                num = 30;
                 break;
             case "2단계":
-                level=2;
-                num=40;
+                level = 2;
+                num = 40;
                 break;
             case "3단계":
-                level=3;
-                num=50;
+                level = 3;
+                num = 50;
                 break;
-            default: break;
+            default:
+                break;
         }
 
         RandomWords = WordCreate(level);
@@ -52,20 +53,21 @@ public class Word extends JPanel{
     }
 
     //파일 읽어서 단어 배열에 추가
-    public  List<String> WordCreate(int level) {
+    public List<String> WordCreate(int level) {
         try {
             BufferedReader in = new BufferedReader(new FileReader("img/word.txt"));
             String str;
             while ((str = in.readLine()) != null) {
                 String arr[] = str.split(" ");
-                for(String data: arr) {
+                for (String data : arr) {
                     words.add(data);
                 }
             }
             in.close();
-        }
-        catch (FileNotFoundException e) {e.printStackTrace();
-        } catch (IOException e) {System.out.println(e);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println(e);
         }
         //1단계일 때는 30개의 단어, 2단계일떄에는 40, 3단계에는 50개의 단어 리턴
         return Word.getRandomElement(words, num);
@@ -86,10 +88,13 @@ public class Word extends JPanel{
     //레벨에 따른 스피드
     public int Speed(int level) {
 
-        switch(level) {
-            case 1: return 1300;
-            case 2: return 1100;
-            case 3: return 900;
+        switch (level) {
+            case 1:
+                return 1300;
+            case 2:
+                return 1100;
+            case 3:
+                return 900;
             default:
                 return 3000;
         }
@@ -97,14 +102,14 @@ public class Word extends JPanel{
 
 
     //단어 생성하는 쓰레드
-    class Rain extends Thread{
+    class Rain extends Thread {
         @Override
         public void run() {
-            for(i =0; i<= 10000; i++) {
+            for (i = 0; i <= 10000; i++) {
                 Random random = new Random();
                 try {
                     label[i] = new JLabel(RandomWords.get(i));
-                    label[i].setFont(new Font ("Serif", Font.BOLD, 14));
+                    label[i].setFont(new Font("Serif", Font.BOLD, 14));
                     label[i].setBounds(0, 0, 80, 20);
                     add(label[i]);
                     label[i].setLocation(random.nextInt(700), 2); // x값 랜덤으로 보여주기
@@ -124,11 +129,15 @@ public class Word extends JPanel{
         }
 
     }
+
     //단어 떨어지는 쓰레드
-    class RainFall extends Thread{
+    class RainFall extends Thread {
+        public int life = 3;
+
         @Override
+
         public void run() {
-            for(int j =0; j<= i; j++) {
+            for (int j = 0; j <= i; j++) {
                 try {
                     if (label[j].isVisible()) {
                         int sp = label[j].getY();
@@ -137,16 +146,31 @@ public class Word extends JPanel{
                         label[j].setLocation(xp, sp + 14);
 
                     }
-                } catch(NullPointerException e) {
+                } catch (NullPointerException e) {
+
+                }
+                if (label[j].isVisible() && label[j].getY() > 480) {
+                    life -= 1;
+                    switch (life) {
+                        case 2:
+                            Gui.heartLabel[2].setVisible(false);
+                            break;
+                        case 1:
+                            Gui.heartLabel[1].setVisible(false);
+                            break;
+                        case 0:
+                            Gui.heartLabel[0].setVisible(false);
+                            //game over
+
+                            break;
+                    }
 
                 }
             }
+
+
         }
 
 
     }
-
-
-
-
 }
