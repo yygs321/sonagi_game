@@ -2,6 +2,8 @@ import java.awt.*;
 import javax.swing.*;
 
 import java.awt.event.*;
+import java.io.IOException;
+import java.text.ParseException;
 
 //1714098 미디어학부 박예원
 //1713056 문헌정보학과 박소민
@@ -18,7 +20,7 @@ public class Gui extends JPanel{
     private JButton sendB,stopB;
 
 
-    public Gui(String id, String Level){
+    public Gui(String id, String Level) throws IOException, ParseException{
         ID=id;
 
         switch(Level) {
@@ -40,16 +42,6 @@ public class Gui extends JPanel{
         wordThread.setBackground(Color.white);
         wordThread.setBounds(0, 80, 800, 400);
         add(wordThread);
-
-        if(score == num){ // 다 맞출 경우
-            pt.p_display.suspend();
-            wordThread.rain.suspend();
-            m=pt.mm;
-            s=pt.ss;
-            ms=pt.ms;
-
-        }
-
 
 
         setSize(1280,720);
@@ -167,17 +159,41 @@ public class Gui extends JPanel{
 
             @Override
             public void keyPressed(KeyEvent e) {
-                for (int i = 0; i < num; i++) {
-                    if (answer.getText().equals(wordThread.RandomWords.get(i))) {
-                        wordThread.label[i].setVisible(false);
-                        score++;
-                        //score변경해서 맞힌개수 다시 출력
-                        scoreLabel.setText(Integer.toString(score)+" / "+Integer.toString(num));
-                        // 해당단어 삭제, 점수 추가
-                        //점수 업데이트 함수 들어가야 함
+            	if(e.getKeyCode()==e.VK_ENTER) {
+                    for (int i = 0; i < num; i++) {
+                        if (answer.getText().equals(wordThread.RandomWords.get(i))) {
+                            wordThread.label[i].setVisible(false);
+                            score++;
+                            //score변경해서 맞힌개수 다시 출력
+                            scoreLabel.setText(Integer.toString(score)+" / "+Integer.toString(num));
+                            // 해당단어 삭제, 점수 추가
+                            //점수 업데이트 함수 들어가야 함
+                        }
                     }
+                    answer.setText("");
+            	}
+                if(score == num){ // 다 맞출 경우
+                    wordThread.rain.suspend();
+                    pt.p_display.suspend();
+                    m=pt.mm;
+                    s=pt.ss;
+                    ms=pt.ms;
+                    
+                    //결과 파일로 저장
+                    try {
+						Result result= new Result(Level,ID,m,s,ms);
+					} catch (IOException | ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                    //결과 불러오기
+                    try {
+						Rank rank=new Rank(Level);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                 }
-                answer.setText("");
 
 
             }

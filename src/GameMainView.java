@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.text.ParseException;
 
 import javax.swing.*;
 
@@ -72,7 +74,12 @@ public class GameMainView extends JFrame implements ActionListener{
 			//입력받은 값 ID 변수에 저장 후 게임화면 띄우기 
 			ID = name.getText().toString();
 			Level= levels.getSelectedItem().toString();
-			main.playGame(this, ID, Level);
+			try {
+				main.playGame(this, ID, Level);
+			} catch (IOException | ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 	

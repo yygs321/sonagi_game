@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.text.ParseException;
 
 public class Main extends JFrame {
 	
@@ -12,7 +14,7 @@ public class Main extends JFrame {
     }
     
 	
-	public void playGame(GameMainView login, String ID, String Level){
+	public void playGame(GameMainView login, String ID, String Level) throws IOException, ParseException{
 		login.dispose();
         JFrame myFrame = new JFrame("산성비 게임"); // JFrame 객체를 생성한다
         myFrame.add(new Gui(ID, Level));
