@@ -135,18 +135,19 @@ public class Gui extends JPanel{
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				for (int i = 0; i < num; i++) {
-	                if (answer.getText().equals(wordThread.RandomWords.get(i))) {
-	                    wordThread.label[i].setVisible(false);
-	                    score++;
-	                    //score변경해서 맞힌개수 다시 출력
-	                    scoreLabel.setText(Integer.toString(score)+" / "+Integer.toString(num));
-	                    // 해당단어 삭제, 점수 추가
-	                    //점수 업데이트 함수 들어가야 함
-	                }
-	            }
-	            answer.setText("");
-
+				if(e.getKeyCode()==e.VK_ENTER) {
+					for (int i = 0; i < num; i++) {
+		                if (answer.getText().equals(wordThread.RandomWords.get(i))) {
+		                    wordThread.label[i].setVisible(false);
+		                    score++;
+		                    //score변경해서 맞힌개수 다시 출력
+		                    scoreLabel.setText(Integer.toString(score)+" / "+Integer.toString(num));
+		                    // 해당단어 삭제, 점수 추가
+		                    //점수 업데이트 함수 들어가야 함
+		                }
+		            }
+		            answer.setText("");
+				}
 				
 			}
 
