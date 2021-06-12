@@ -9,9 +9,7 @@ import javax.swing.*;
 
 public class Word extends JPanel{
 
-    /**
-	 * 
-	 */
+ 
 	private static final long serialVersionUID = 1L;
 	List<String> words = new ArrayList<String>();
     List<String> RandomWords = new ArrayList<String>();
